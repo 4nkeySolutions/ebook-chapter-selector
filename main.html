@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!-- saved from url=(0028)file:///D:/adddwfs/demo.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter Selector</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            color: #333;
+        }
+        h1 {
+            color: #222;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        p {
+            color: #444;
+            font-size: 1.2rem;
+        }
+        select, button {
+            margin: 10px;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        select {
+            background-color: #fff;
+            color: #333;
+        }
+        button {
+            background-color: #4facfe;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #00f2fe;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            animation: slideIn 1.2s ease-in-out;
+        }
+        footer {
+            margin-top: 20px;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="fade-in">
+    <div class="container fade-in">
+        <h1>Chapter Selector</h1>
+        <p>Choose a subject and chapter to proceed:</p>
+
+        <div>
+            <label for="subject">Select Subject:</label>
+            <select id="subject" onchange="updateChapters()">
+                <option value="math">Math</option>
+                <option value="literature">Literature</option>
+                <option value="english">English</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="chapter">Select Chapter:</label>
+            <select id="chapter"><option value="0">Chapter 1</option><option value="1">Chapter 2</option><option value="2">Chapter 3</option><option value="3">Chapter 4</option><option value="4">Chapter 5</option></select>
+        </div>
+
+        <button onclick="openLink()">Go</button>
+    </div>
+
+    <footer>
+        © 2025 Chapter Selector. All rights reserved.
+    </footer>
+
+    <script>
+        const links = {
+            math: [
+                'https://example.com/math/chapter1',
+                'https://example.com/math/chapter2',
+                'https://example.com/math/chapter3',
+                'https://example.com/math/chapter4',
+                'https://example.com/math/chapter5'
+            ],
+            literature: [
+                'https://example.com/literature/chapter1',
+                'https://example.com/literature/chapter2',
+                'https://example.com/literature/chapter3',
+                'https://example.com/literature/chapter4'
+            ],
+            english: [
+                'https://example.com/english/chapter1',
+                'https://example.com/english/chapter2',
+                'https://example.com/english/chapter3',
+                'https://example.com/english/chapter4'
+            ]
+        };
+
+        function updateChapters() {
+            const subject = document.getElementById('subject').value;
+            const chapterSelect = document.getElementById('chapter');
+            
+            chapterSelect.innerHTML = '';
+            links[subject].forEach((_, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `Chapter ${index + 1}`;
+                chapterSelect.appendChild(option);
+            });
+        }
+
+        function openLink() {
+            const subject = document.getElementById('subject').value;
+            const chapterIndex = document.getElementById('chapter').value;
+            const link = links[subject][chapterIndex];
+
+            if (link) {
+                window.open(link, '_blank');
+            } else {
+                alert('Please select a valid chapter.');
+            }
+        }
+
+        // Add a loading animation for the initial population
+        document.addEventListener('DOMContentLoaded', () => {
+            updateChapters();
+            document.body.classList.add('fade-in');
+        });
+    </script>
+
+
+</body></html>
